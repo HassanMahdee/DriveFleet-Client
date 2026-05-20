@@ -1,79 +1,70 @@
+import Image from "next/image";
 import { ThemeToggleBtn } from "./themeToggleBtn";
-
+import Link from "next/link";
+import { MdDirectionsCar } from "react-icons/md";
+import { NavPath } from "./navPaths";
+const links = [
+  { href: "/", label: "Home" },
+  { href: "/cars", label: "Explore Cars" },
+];
 export function Navbar() {
   return (
-    <div className="navbar bg-primary text-primary-content shadow-sm">
+    <nav className="navbar backdrop-blur-md bg-base-100/80 sticky top-0 z-50 border-b border-base-300 px-4 lg:px-10">
       <div className="navbar-start">
-        <div className="dropdown">
-          <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-5 w-5"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              {" "}
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M4 6h16M4 12h8m-8 6h16"
-              />{" "}
-            </svg>
-          </div>
-          <ul
-            tabIndex="-1"
-            className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow"
-          >
-            <li>
-              <a>Item 1</a>
-            </li>
-            <li>
-              <a>Parent</a>
-              <ul className="p-2">
-                <li>
-                  <a>Submenu 1</a>
-                </li>
-                <li>
-                  <a>Submenu 2</a>
-                </li>
-              </ul>
-            </li>
-            <li>
-              <a>Item 3</a>
-            </li>
-          </ul>
-        </div>
-        <a className="btn btn-ghost text-xl">DriveFleet</a>
+        <Link
+          href="/"
+          className="flex items-center gap-2 text-primary font-bold text-xl"
+        >
+          <MdDirectionsCar size={28} />
+          DriveFleet
+        </Link>
       </div>
-      <div className="navbar-center hidden lg:flex">
-        <ul className="menu menu-horizontal px-1">
-          <li>
-            <a>Item 1</a>
-          </li>
-          <li>
-            <details>
-              <summary>Parent</summary>
-              <ul className="p-2 bg-base-100 w-40 z-1">
-                <li>
-                  <a>Submenu 1</a>
-                </li>
-                <li>
-                  <a>Submenu 2</a>
-                </li>
-              </ul>
-            </details>
-          </li>
-          <li>
-            <a>Item 3</a>
-          </li>
-        </ul>
+      <div className="navbar-center hidden lg:flex gap-6">
+        {links.map((link) => (
+          <NavPath key={link.href} link={link} />
+        ))}
       </div>
-      <div className="navbar-end">
+      <div className="navbar-end gap-2">
         <ThemeToggleBtn />
-        <a className="btn">Sign In</a>
+        {/* {session ? (
+          <div className="dropdown dropdown-end">
+            <div tabIndex={0} className="avatar cursor-pointer">
+              <div className="w-9 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
+                <Image
+                  src={session.user?.image || "/default-avatar.png"}
+                  alt="profile"
+                />
+              </div>
+            </div>
+            <ul
+              tabIndex={0}
+              className="dropdown-content menu bg-base-200 rounded-2xl z-1 w-52 p-2 shadow mt-2"
+            >
+              <li className="px-3 py-2 text-sm font-semibold text-base-content/60">
+                {session.user?.name}
+              </li>
+              <li>
+                <Link href="/add-car">Add Car</Link>
+              </li>
+              <li>
+                <Link href="/my-bookings">My Bookings</Link>
+              </li>
+              <li>
+                <Link href="/my-cars">My Added Cars</Link>
+              </li>
+              <li>
+                <button onClick={handleLogout} className="text-error">
+                  Logout
+                </button>
+              </li>
+            </ul>
+          </div>
+        ) : (
+          <Link href="/login" className="btn btn-primary btn-sm rounded-full">
+            Login
+          </Link>
+        )} */}
       </div>
-    </div>
+    </nav>
   );
 }
