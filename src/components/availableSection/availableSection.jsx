@@ -52,7 +52,7 @@ export default function AvailableSection() {
           >
             {featuredCars.map((car) => (
               <SwiperSlide key={car._id}>
-                <div className="bg-base-200 rounded-2xl overflow-hidden shadow-lg transition-all duration-300 hover:shadow-xl h-full flex flex-col">
+                <div className="bg-base-200 rounded-2xl overflow-hidden shadow-lg transition-all duration-300 hover:shadow-xl min-h-120 flex flex-col">
                   <div className="relative h-56 w-full">
                     <Image
                       src={car.imageURL}
@@ -69,7 +69,7 @@ export default function AvailableSection() {
                       <h3 className="text-xl font-bold text-base-content">
                         {car.carName}
                       </h3>
-                      <span className="badge badge-outline badge-primary text-xs">
+                      <span className="badge badge-outline badge-primary badge-lg text-xs">
                         {car.carType}
                       </span>
                     </div>

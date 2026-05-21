@@ -1,13 +1,19 @@
 import Image from "next/image";
 import { ThemeToggleBtn } from "./themeToggleBtn";
 import Link from "next/link";
-import { MdDirectionsCar } from "react-icons/md";
 import { NavPath } from "./navPaths";
+import { auth } from "@/lib/auth";
+import { headers } from "next/headers";
+import { SignOutBtn } from "./signOutBtn";
 const links = [
   { href: "/", label: "Home" },
   { href: "/cars", label: "Explore Cars" },
 ];
-export function Navbar() {
+export async function Navbar() {
+  const session = await auth.api.getSession({
+    headers: await headers(),
+  });
+
   return (
     <nav className="navbar backdrop-blur-md bg-base-100/80 sticky top-0 z-50 border-b border-base-300 px-4 lg:px-10">
       <div className="navbar-start">
@@ -15,7 +21,13 @@ export function Navbar() {
           href="/"
           className="flex items-center gap-2 text-primary font-bold text-xl"
         >
-          <MdDirectionsCar size={28} />
+          <Image
+            src="/logo.png"
+            alt="DriveFleet"
+            width={50}
+            height={50}
+            className="object-cover"
+          />
           DriveFleet
         </Link>
       </div>
@@ -26,13 +38,16 @@ export function Navbar() {
       </div>
       <div className="navbar-end gap-2">
         <ThemeToggleBtn />
-        {/* {session ? (
+        {session ? (
           <div className="dropdown dropdown-end">
             <div tabIndex={0} className="avatar cursor-pointer">
               <div className="w-9 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
                 <Image
                   src={session.user?.image || "/default-avatar.png"}
                   alt="profile"
+                  width={24}
+                  height={24}
+                  className="object-cover"
                 />
               </div>
             </div>
@@ -53,9 +68,7 @@ export function Navbar() {
                 <Link href="/my-cars">My Added Cars</Link>
               </li>
               <li>
-                <button onClick={handleLogout} className="text-error">
-                  Logout
-                </button>
+                <SignOutBtn />
               </li>
             </ul>
           </div>
@@ -63,7 +76,7 @@ export function Navbar() {
           <Link href="/login" className="btn btn-primary btn-sm rounded-full">
             Login
           </Link>
-        )} */}
+        )}
       </div>
     </nav>
   );

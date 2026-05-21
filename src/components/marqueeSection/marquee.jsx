@@ -39,8 +39,6 @@ export default function MarqueeSection() {
                 <Image
                   src={brand.logoPath}
                   alt={`${brand.name} logo`}
-                  width={96}
-                  height={48}
                   fill
                   className="object-contain"
                 />

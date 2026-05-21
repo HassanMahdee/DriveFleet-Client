@@ -24,12 +24,12 @@ export default function RootLayout({ children }) {
       <body
         className={`${outfit.variable} font-[--font-outfit] bg-background text-foreground`}
       >
-        <Navbar />
-        <CarsProvider>
-          <Providers>{children}</Providers>
-        </CarsProvider>
-        <Footer />
-        <ToastContainer />
+        <Providers>
+          <Navbar />
+          <CarsProvider>{children}</CarsProvider>
+          <Footer />
+          <ToastContainer />
+        </Providers>
       </body>
     </html>
   );

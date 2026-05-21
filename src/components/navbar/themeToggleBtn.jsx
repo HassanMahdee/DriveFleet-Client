@@ -15,7 +15,10 @@ export function ThemeToggleBtn() {
   }, [theme]);
   return (
     <button
-      onClick={() => setTheme(theme === "light" ? "dark" : "light")}
+      onClick={() => {
+        setTheme(theme === "light" ? "dark" : "light");
+        console.log(theme);
+      }}
       className="btn btn-ghost btn-circle"
     >
       {theme === "light" ? <MdDarkMode size={22} /> : <MdLightMode size={22} />}

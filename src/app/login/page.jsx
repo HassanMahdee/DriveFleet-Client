@@ -16,6 +16,7 @@ export default function Login() {
     const result = await authClient.signIn.email({ email, password });
     if (result.error) return toast.error(result.error.message);
     router.push("/");
+    router.refresh();
   }
 
   async function handleGoogle() {
