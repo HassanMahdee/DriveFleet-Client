@@ -3,6 +3,10 @@ dns.setServers(["8.8.8.8", "8.8.4.4"]);
 import { Outfit } from "next/font/google";
 import "./globals.css";
 import { Providers } from "./providers";
+import { Navbar } from "@/components/navbar/navbar";
+import { Footer } from "@/components/footer/footer";
+import { CarsProvider } from "@/contexts/carsContext";
+import { ToastContainer } from "react-toastify";
 const outfit = Outfit({
   subsets: ["latin"],
   weight: ["400", "500", "600", "700"],
@@ -20,7 +24,12 @@ export default function RootLayout({ children }) {
       <body
         className={`${outfit.variable} font-[--font-outfit] bg-background text-foreground`}
       >
-        <Providers>{children}</Providers>
+        <Navbar />
+        <CarsProvider>
+          <Providers>{children}</Providers>
+        </CarsProvider>
+        <Footer />
+        <ToastContainer />
       </body>
     </html>
   );
