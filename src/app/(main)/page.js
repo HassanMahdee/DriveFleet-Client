@@ -1,7 +1,9 @@
+import Banner from "@/components/banner/banner";
+
 export default function Home() {
   return (
     <div>
-      <h1>DriveFleet Client</h1>
+      <Banner />
     </div>
   );
 }
