@@ -14,7 +14,8 @@ export default function MyBookings() {
     const fetchBookings = async () => {
       try {
         const res = await fetch(
-          `${process.env.NEXT_PUBLIC_SERVER_URL}/my-bookings`);
+          `${process.env.NEXT_PUBLIC_SERVER_URL}/my-bookings`,
+        );
         if (!res.ok) throw new Error("Failed to fetch bookings");
         const data = await res.json();
         setBookings(data);
@@ -31,7 +32,7 @@ export default function MyBookings() {
 
     try {
       const res = await fetch(
-        `${process.env.NEXT_PUBLIC_SERVER_URL}/bookings/${bookingId}`,
+        `${process.env.NEXT_PUBLIC_SERVER_URL}/my-bookings/${bookingId}`,
         {
           method: "DELETE",
         },
@@ -82,13 +83,14 @@ export default function MyBookings() {
                     {booking.carName}
                   </h2>
                 </Link>
-                <p className="text-lg font-bold text-base-content">
-                  ${booking.dailyRentPrice}
-                  <span className="text-sm font-normal text-base-content/60">
-                    {" "}
-                    / day
-                  </span>
+                <p className="text-lg font-bold text-primary">
+                  Total: ${booking.totalPrice}
                 </p>
+                <p className="text-sm text-base-content/70">
+                  📅 {new Date(booking.startDate).toLocaleDateString()} →{" "}
+                  {new Date(booking.endDate).toLocaleDateString()}
+                </p>
+                <p className="text-sm">💰 ${booking.dailyRentPrice} per day</p>
                 <div className="flex flex-wrap gap-2 text-sm text-base-content/80">
                   <span>
                     🚗 Driver needed: {booking.driverNeeded ? "Yes" : "No"}

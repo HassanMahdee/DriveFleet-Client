@@ -1,38 +1,69 @@
-'use client';
-import { useState } from 'react';
-import { useRouter } from 'next/navigation';
-import { toast } from 'react-toastify';
+"use client";
+
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { toast } from "react-toastify";
 
 export default function BookingModal({ car }) {
   const router = useRouter();
   const [driverNeeded, setDriverNeeded] = useState(false);
-  const [specialNote, setSpecialNote] = useState('');
+  const [specialNote, setSpecialNote] = useState("");
+  const [startDate, setStartDate] = useState("");
+  const [endDate, setEndDate] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
+  const calculateDays = () => {
+    if (!startDate || !endDate) return 0;
+    const start = new Date(startDate);
+    const end = new Date(endDate);
+    if (end <= start) return 0;
+    const diffTime = Math.abs(end - start);
+    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+    return diffDays;
+  };
+
+  const days = calculateDays();
+  const totalPrice = days * car.dailyRentPrice;
+
   const handleBook = async () => {
+    if (!startDate || !endDate) {
+      toast.error("Please select pickup and return dates");
+      return;
+    }
+    if (days <= 0) {
+      toast.error("Return date must be after pickup date");
+      return;
+    }
+
     setIsLoading(true);
     try {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/bookings`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          carId: car._id,
-          carName: car.carName,
-          carImage: car.imageURL,
-          dailyRentPrice: car.dailyRentPrice,
-          driverNeeded,
-          specialNote,
-        }),
-      });
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_SERVER_URL}/bookings`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            carId: car._id,
+            carName: car.carName,
+            carImage: car.imageURL,
+            dailyRentPrice: car.dailyRentPrice,
+            totalPrice,
+            startDate,
+            endDate,
+            driverNeeded,
+            specialNote,
+          }),
+        },
+      );
 
       if (!res.ok) {
         const err = await res.json();
-        throw new Error(err.message || 'Booking failed');
+        throw new Error(err.message || "Booking failed");
       }
 
-      toast.success('Car booked successfully!');
-      document.getElementById('booking_modal').close();
-      router.push('/my-bookings');
+      toast.success("Car booked successfully!");
+      document.getElementById("booking_modal").close();
+      router.push("/my-bookings");
     } catch (error) {
       toast.error(error.message);
     } finally {
@@ -44,7 +75,7 @@ export default function BookingModal({ car }) {
     <>
       <button
         className="btn btn-primary rounded-full px-8"
-        onClick={() => document.getElementById('booking_modal').showModal()}
+        onClick={() => document.getElementById("booking_modal").showModal()}
       >
         Book Now
       </button>
@@ -53,6 +84,42 @@ export default function BookingModal({ car }) {
         <div className="modal-box bg-base-200 rounded-2xl max-w-md">
           <h3 className="font-bold text-xl mb-4">Book {car.carName}</h3>
           <div className="space-y-4">
+            <div className="grid grid-cols-2 gap-4">
+              <div className="form-control">
+                <label className="label text-sm">Pickup Date</label>
+                <input
+                  type="date"
+                  className="input input-bordered w-full"
+                  min={new Date().toISOString().split("T")[0]}
+                  value={startDate}
+                  onChange={(e) => setStartDate(e.target.value)}
+                  required
+                />
+              </div>
+              <div className="form-control">
+                <label className="label text-sm">Return Date</label>
+                <input
+                  type="date"
+                  className="input input-bordered w-full"
+                  min={startDate || new Date().toISOString().split("T")[0]}
+                  value={endDate}
+                  onChange={(e) => setEndDate(e.target.value)}
+                  required
+                />
+              </div>
+            </div>
+
+            {days > 0 && (
+              <div className="bg-base-300 p-3 rounded-lg">
+                <p className="text-sm">
+                  ${car.dailyRentPrice} × {days} day{days !== 1 && "s"}
+                </p>
+                <p className="text-xl font-bold text-primary">
+                  Total: ${totalPrice}
+                </p>
+              </div>
+            )}
+
             <label className="label cursor-pointer justify-start gap-4">
               <span className="label-text font-medium">Driver Needed?</span>
               <input
@@ -77,10 +144,12 @@ export default function BookingModal({ car }) {
             <button
               className="btn btn-primary rounded-full"
               onClick={handleBook}
-              disabled={isLoading}
+              disabled={isLoading || days === 0}
             >
-              {isLoading && <span className="loading loading-spinner loading-xs"></span>}
-              Confirm Booking
+              {isLoading && (
+                <span className="loading loading-spinner loading-xs"></span>
+              )}
+              Confirm Booking (${totalPrice})
             </button>
           </div>
         </div>
