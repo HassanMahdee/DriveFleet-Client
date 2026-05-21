@@ -42,7 +42,6 @@ export default function AddCar() {
 
       if (!res.ok) {
         const err = await res.json();
-        console.log(err);
         throw new Error(err.message || "Failed to add car");
       }
 
@@ -50,7 +49,6 @@ export default function AddCar() {
       router.push("/my-cars");
     } catch (error) {
       toast.error(error.message);
-      console.log(error);
     } finally {
       setLoading(false);
     }
