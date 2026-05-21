@@ -8,6 +8,8 @@ import { SignOutBtn } from "./signOutBtn";
 const links = [
   { href: "/", label: "Home" },
   { href: "/cars", label: "Explore Cars" },
+  { href: "/add-car", label: "Add Car" },
+  { href: "/my-bookings", label: "My Bookings" },
 ];
 export async function Navbar() {
   const session = await auth.api.getSession({

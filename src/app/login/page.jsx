@@ -5,16 +5,19 @@ import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
 import { FcGoogle } from "react-icons/fc";
 import Link from "next/link";
+import { AiOutlineEyeInvisible, AiOutlineEye } from "react-icons/ai";
 
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const router = useRouter()
+  const [showPassword, setShowPassword] = useState(false);
+  const router = useRouter();
 
   async function handleLogin(e) {
     e.preventDefault();
     const result = await authClient.signIn.email({ email, password });
     if (result.error) return toast.error(result.error.message);
+    await fetch("/api/auth/jwt", { method: "POST", credentials: "include" });
     router.push("/");
     router.refresh();
   }
@@ -36,14 +39,23 @@ export default function Login() {
             onChange={(e) => setEmail(e.target.value)}
             required
           />
-          <input
-            type="password"
-            placeholder="Password"
-            className="input input-bordered w-full"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
+          <div className="relative">
+            <input
+              type={showPassword ? "text" : "password"}
+              placeholder="Password"
+              className="input input-bordered w-full"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
+            <button
+              type="button"
+              onClick={() => setShowPassword(!showPassword)}
+              className="btn btn-ghost btn-md absolute right-1 top-1/2 -translate-y-1/2"
+            >
+              {showPassword ? <AiOutlineEye /> : <AiOutlineEyeInvisible />}
+            </button>
+          </div>
           <button type="submit" className="btn btn-primary w-full rounded-full">
             Login
           </button>

@@ -36,6 +36,7 @@ export default function AddCar() {
       setLoading(true);
       const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/cars`, {
         method: "POST",
+        credentials: "include",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(carToSend),
       });

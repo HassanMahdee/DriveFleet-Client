@@ -1,10 +1,12 @@
 "use client";
-
+import { authClient } from "@/lib/auth-client";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
 
 export default function BookingModal({ car }) {
+  const session = authClient.useSession();
+  const user = session.data?.user;
   const router = useRouter();
   const [driverNeeded, setDriverNeeded] = useState(false);
   const [specialNote, setSpecialNote] = useState("");
@@ -41,6 +43,7 @@ export default function BookingModal({ car }) {
         `${process.env.NEXT_PUBLIC_SERVER_URL}/bookings`,
         {
           method: "POST",
+          credentials: "include",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
             carId: car._id,
@@ -75,7 +78,13 @@ export default function BookingModal({ car }) {
     <>
       <button
         className="btn btn-primary rounded-full px-8"
-        onClick={() => document.getElementById("booking_modal").showModal()}
+        onClick={() => {
+          if (user) {
+            document.getElementById("booking_modal").showModal();
+          } else {
+            router.push("/login");
+          }
+        }}
       >
         Book Now
       </button>

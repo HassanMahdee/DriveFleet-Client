@@ -1,36 +1,38 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# DriveFleet – Premium Car Rental
 
-## Getting Started
+**Live Site:** [https://drivefleet.vercel.app](https://drivefleet.vercel.app)  
+*(Replace with your actual deployed URL)*
 
-First, run the development server:
+## 🚗 Features
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+- **Secure Authentication** – Login with email/password or Google account. JWT tokens are stored in HTTP‑only cookies for enhanced security.
+- **Explore & Filter Cars** – Browse all available hypercars, search by name (case‑insensitive), and filter by type (SUV, Sedan, Hypercar, etc.).
+- **Full Car Management** – Add new cars, update price, description, availability, image, type, and location. Delete your own listings with a confirmation modal.
+- **Easy Booking System** – Choose pickup/return dates, decide if you need a driver, add special notes, and see the total price instantly. View all your bookings with booking date as a link to the car details.
+- **Responsive Modern UI** – Built with Tailwind CSS and DaisyUI, featuring light/dark theme toggle, smooth carousels using Swiper, and a marquee of car brand logos.
+- **Private Dashboard** – Access “My Bookings”, “My Added Cars”, and “Add Car” only when logged in. Protected routes automatically redirect unauthenticated users.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 🛠️ Tech Stack
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+- Next.js (App Router, JavaScript)
+- Tailwind CSS + DaisyUI
+- Better Auth (authentication)
+- JWT HTTP‑only cookies
+- React Context (global car state)
+- Swiper, Fast Marquee, React Icons, React Toastify
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 📁 Project Structure
+src/
+├── app/ # Pages (Home, Explore Cars, Car Details, Login, Register, Add Car, My Bookings, My Cars)
+├── components/ # Reusable UI (Navbar, Footer, CarCard, BookingModal, etc.)
+├── context/ # CarsContext for search/filter state
+├── lib/ # Better Auth and JWT helpers
+└── middleware.js # Route protection
 
-## Learn More
+## 🌐 Deployment
 
-To learn more about Next.js, take a look at the following resources:
+Deployed on Vercel.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+---
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+*Built as an academic assignment – DriveFleet "Your Journey Starts Here"*

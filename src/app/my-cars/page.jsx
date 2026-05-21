@@ -25,6 +25,9 @@ export default function MyAddedCars() {
         setLoading(true);
         const res = await fetch(
           `${process.env.NEXT_PUBLIC_SERVER_URL}/my-cars`,
+          {
+            credentials: "include",
+          },
         );
         if (!res.ok) throw new Error("Failed to fetch your cars");
         const data = await res.json();
@@ -49,6 +52,7 @@ export default function MyAddedCars() {
         `${process.env.NEXT_PUBLIC_SERVER_URL}/cars/${carId}`,
         {
           method: "DELETE",
+          credentials: "include",
         },
       );
       if (!res.ok) throw new Error("Delete failed");
@@ -80,6 +84,7 @@ export default function MyAddedCars() {
         `${process.env.NEXT_PUBLIC_SERVER_URL}/cars/${updatingCar._id}`,
         {
           method: "PATCH",
+          credentials: "include",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(editForm),
         },

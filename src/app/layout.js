@@ -7,6 +7,7 @@ import { Navbar } from "@/components/navbar/navbar";
 import { Footer } from "@/components/footer/footer";
 import { CarsProvider } from "@/contexts/carsContext";
 import { ToastContainer } from "react-toastify";
+import { JWTSync } from "@/components/jwtSync/jwtSync";
 const outfit = Outfit({
   subsets: ["latin"],
   weight: ["400", "500", "600", "700"],
@@ -25,6 +26,7 @@ export default function RootLayout({ children }) {
         className={`${outfit.variable} font-[--font-outfit] bg-background text-foreground`}
       >
         <Providers>
+          <JWTSync />
           <Navbar />
           <CarsProvider>{children}</CarsProvider>
           <Footer />

@@ -1,11 +1,9 @@
-import { notFound } from "next/navigation";
 import BookingModal from "@/components/modals/bookingModal";
 import Image from "next/image";
 
 async function getCar(id) {
   const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/cars/${id}`, {
     cache: "no-store",
-    credentials: "include",
   });
   if (!res.ok) return null;
   return res.json();
@@ -14,8 +12,6 @@ async function getCar(id) {
 export default async function CarDetails({ params }) {
   const { id } = await params;
   const car = await getCar(id);
-
-  if (!car) notFound();
 
   return (
     <div className="max-w-6xl mx-auto px-4 py-12">
@@ -58,6 +54,9 @@ export default async function CarDetails({ params }) {
             </p>
             <p>
               <strong>Pickup Location:</strong> {car.pickupLocation}
+            </p>
+            <p>
+              <strong>Total Bookings:</strong> {car.bookingCount || 0} times
             </p>
             <p>
               <strong>Description:</strong> {car.description}

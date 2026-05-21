@@ -13,6 +13,7 @@ export default function Register() {
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
   const [showPassword, setShowPassword] = useState(false);
+  const [profilePhotoUrl, setProfilePhotoUrl] = useState("");
   const router = useRouter();
 
   function validatePassword(pw) {
@@ -25,10 +26,16 @@ export default function Register() {
     e.preventDefault();
     const error = validatePassword(password);
     if (error) return toast.error(error);
-    const {data, error: authError} = await authClient.signUp.email({ email, password, name });
+    const { data, error: authError } = await authClient.signUp.email({
+      email,
+      password,
+      name,
+      image: profilePhotoUrl,
+      autoSignIn: false,
+    });
     if (authError) return toast.error(authError.message);
     console.log(data);
-    router.push("/");
+    router.push("/login");
   }
 
   async function handleGoogle() {
@@ -73,6 +80,14 @@ export default function Register() {
               {showPassword ? <AiOutlineEye /> : <AiOutlineEyeInvisible />}
             </button>
           </div>
+          <input
+            type="text"
+            placeholder="Profile Photo URL"
+            className="input input-bordered w-full"
+            value={profilePhotoUrl}
+            onChange={(e) => setProfilePhotoUrl(e.target.value)}
+            required
+          />
           <button type="submit" className="btn btn-primary w-full rounded-full">
             Register
           </button>

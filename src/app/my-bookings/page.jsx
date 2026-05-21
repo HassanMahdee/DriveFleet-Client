@@ -15,6 +15,9 @@ export default function MyBookings() {
       try {
         const res = await fetch(
           `${process.env.NEXT_PUBLIC_SERVER_URL}/my-bookings`,
+          {
+            credentials: "include",
+          },
         );
         if (!res.ok) throw new Error("Failed to fetch bookings");
         const data = await res.json();
@@ -35,6 +38,7 @@ export default function MyBookings() {
         `${process.env.NEXT_PUBLIC_SERVER_URL}/my-bookings/${bookingId}`,
         {
           method: "DELETE",
+          credentials: "include",
         },
       );
       if (!res.ok) throw new Error("Cancellation failed");
