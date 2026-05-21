@@ -14,7 +14,6 @@ export default function BookingModal({ car }) {
     try {
       const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/bookings`, {
         method: 'POST',
-        credentials: 'include',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           carId: car._id,

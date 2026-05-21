@@ -53,10 +53,10 @@ export default function MyAddedCars() {
       );
       if (!res.ok) throw new Error("Delete failed");
       toast.success(`${carName} deleted`);
-      router.refresh();
     } catch (err) {
       toast.error(err.message);
     }
+    router.refresh();
   };
 
   const openUpdateModal = (car) => {
