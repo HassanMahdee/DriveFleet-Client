@@ -1,7 +1,6 @@
 # DriveFleet – Premium Car Rental
 
-**Live Site:** [https://drivefleet.vercel.app](https://drivefleet.vercel.app)  
-*(Replace with your actual deployed URL)*
+**Live Site:** https://drive-fleet-013.vercel.app
 
 ## 🚗 Features
 
