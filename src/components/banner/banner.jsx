@@ -2,10 +2,11 @@
 
 import Link from "next/link";
 import { motion } from "framer-motion";
+import { IoIosArrowDown } from "react-icons/io";
 
 export default function Banner() {
   return (
-    <section className="relative min-h-[90vh] flex items-center justify-center overflow-hidden">
+    <div className="relative min-h-[90vh] w-full flex items-center justify-center lg:justify-start overflow-hidden">
       <div
         className="absolute inset-0 z-0 bg-cover bg-center bg-no-repeat"
         style={{
@@ -15,7 +16,7 @@ export default function Banner() {
         <div className="absolute inset-0 bg-linear-to-r from-black/70 via-black/50 to-black/30" />
       </div>
 
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-white">
+      <div className="relative z-10 max-w-7xl px-4 sm:px-6 lg:px-8 text-center text-white">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
@@ -37,22 +38,10 @@ export default function Banner() {
           </Link>
         </motion.div>
 
-        <div className="absolute bottom-11 left-1/2 -translate-x-1/2 animate-bounce hidden md:block">
-          <svg
-            className="w-6 h-6 text-white/60"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M19 14l-7 7m0 0l-7-7m7 7V3"
-            />
-          </svg>
+        <div className="absolute bottom-11 left-1/2 -translate-x-1/2 animate-bounce">
+          <IoIosArrowDown className="w-6 h-6 text-white/60" />
         </div>
       </div>
-    </section>
+    </div>
   );
 }
