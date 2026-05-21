@@ -1,10 +1,9 @@
 "use client";
 
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Autoplay, Pagination, Navigation } from "swiper/modules";
+import { Autoplay, Pagination } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/pagination";
-import "swiper/css/navigation";
 import Image from "next/image";
 import Link from "next/link";
 import { useCars } from "@/contexts/carsContext";
@@ -12,7 +11,7 @@ import { PiSeat } from "react-icons/pi";
 import { TiLocationOutline } from "react-icons/ti";
 import Loader from "../loader/loader";
 
-export default function FeaturedSection() {
+export default function AvailableSection() {
   const { cars, loading } = useCars();
 
   if (loading) return <Loader />;
@@ -28,7 +27,7 @@ export default function FeaturedSection() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
           <h2 className="text-3xl md:text-4xl font-bold text-base-content mb-3">
-            Featured Hypercars
+            Available Hypercars
           </h2>
           <p className="text-base-content/70 max-w-2xl mx-auto">
             The crown jewels of our fleet – handpicked for the ultimate driving

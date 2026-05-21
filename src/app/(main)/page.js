@@ -1,13 +1,16 @@
 import Banner from "@/components/banner/banner";
 import MarqueeSection from "@/components/marqueeSection/marquee";
-import FeaturedSection from "@/components/featuredSection/featuredSection";
-
+import AvailableSection from "@/components/availableSection/availableSection";
+import WhyChooseUs from "@/components/whyChooseUsSection/whyChooseUs";
+import Testimonials from "@/components/customerReviewSection/testimonials";
 export default function Home() {
   return (
-    <div>
+    <div className="min-h-screen flex flex-col gap-4">
       <Banner />
       <MarqueeSection />
-      <FeaturedSection />
+      <AvailableSection />
+      <WhyChooseUs />
+      <Testimonials />
     </div>
   );
 }
