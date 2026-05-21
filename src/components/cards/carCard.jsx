@@ -28,7 +28,7 @@ export default function CarCard({ car }) {
           <span className="flex items-center gap-1"><MdLocationOn />{car.pickupLocation}</span>
         </div>
         <div className="card-actions justify-between items-center mt-3">
-          <p className="text-primary font-bold text-lg">${car.dailyRentPrice}<span className="text-xs font-normal text-base-content/60">/day</span></p>
+          <p className="text-primary font-bold text-lg">৳{car.dailyRentPrice}<span className="text-xs font-normal text-base-content/60">/day</span></p>
           <Link href={`/cars/${car._id}`} className="btn btn-primary btn-sm rounded-full">View Details</Link>
         </div>
       </div>

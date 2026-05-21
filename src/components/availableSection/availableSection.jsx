@@ -7,8 +7,8 @@ import "swiper/css/pagination";
 import Image from "next/image";
 import Link from "next/link";
 import { useCars } from "@/contexts/carsContext";
-import { PiSeat } from "react-icons/pi";
-import { TiLocationOutline } from "react-icons/ti";
+import { MdLocationOn } from 'react-icons/md'
+import { BsPeopleFill } from 'react-icons/bs'
 import Loader from "../loader/loader";
 
 export default function AvailableSection() {
@@ -61,7 +61,7 @@ export default function AvailableSection() {
                       className="object-cover"
                     />
                     <div className="absolute top-4 right-4 bg-primary text-white text-sm font-bold px-3 py-1 rounded-full shadow">
-                      ${car.dailyRentPrice}/day
+                      ৳{car.dailyRentPrice}/day
                     </div>
                   </div>
                   <div className="p-5 flex flex-col grow">
@@ -79,10 +79,10 @@ export default function AvailableSection() {
                     <div className="flex justify-between items-center mt-auto pt-4">
                       <div className="flex flex-col justify-center gap-2 text-sm">
                         <span>
-                          <PiSeat /> {car.seatCapacity} seats
+                          <BsPeopleFill /> {car.seatCapacity} seats
                         </span>
                         <span>
-                          <TiLocationOutline /> {car.pickupLocation}
+                          <MdLocationOn /> {car.pickupLocation}
                         </span>
                       </div>
                       <Link
